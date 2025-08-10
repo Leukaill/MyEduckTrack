@@ -53,11 +53,16 @@ const AppContent: React.FC = () => {
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-                <span className="material-icons text-white text-xl">school</span>
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden border border-gray-200">
+                <img 
+                  src="/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg" 
+                  alt="School Logo" 
+                  className="w-8 h-8 object-contain"
+                  data-testid="img-nav-logo"
+                />
               </div>
               <div>
-                <h1 className="font-semibold text-gray-900">Lincoln High School</h1>
+                <h1 className="font-semibold text-gray-900">EducTrack School</h1>
                 <p className="text-sm text-gray-500 capitalize">{user.role} Dashboard</p>
               </div>
             </div>

@@ -90,6 +90,20 @@ export const OTPVerification: React.FC<OTPVerificationProps> = ({ onBack }) => {
 
   return (
     <div className="w-full max-w-md mx-auto">
+      {/* Logo Section */}
+      <div className="text-center mb-8">
+        <div className="w-20 h-20 bg-white rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-md overflow-hidden">
+          <img 
+            src="/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg" 
+            alt="EducTrack Logo" 
+            className="w-16 h-16 object-contain"
+            data-testid="img-otp-logo"
+          />
+        </div>
+        <h1 className="text-3xl font-bold text-white mb-2">EducTrack</h1>
+        <p className="text-blue-100">School Management System</p>
+      </div>
+      
       <Card className="bg-white rounded-3xl shadow-lg">
         <CardContent className="p-6">
           <div className="text-center mb-6">

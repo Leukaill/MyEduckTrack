@@ -4,75 +4,74 @@
   "description": "Modern school management system for teachers, parents, and administrators",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "orientation": "portrait",
   "theme_color": "#2563EB",
-  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "productivity"],
-  "lang": "en",
-  "dir": "ltr",
-  "scope": "/",
   "screenshots": [
     {
-      "src": "/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshot-desktop.png",
+      "src": "/screenshot-wide.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-narrow.png", 
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ],
   "shortcuts": [
     {
-      "name": "Dashboard",
-      "short_name": "Dashboard",
-      "description": "View your dashboard",
-      "url": "/",
+      "name": "Messages",
+      "short_name": "Messages",
+      "description": "View messages from teachers and parents",
+      "url": "/?page=messages",
       "icons": [
         {
-          "src": "/icon-192.png",
-          "sizes": "192x192"
+          "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+          "sizes": "96x96"
         }
       ]
     },
     {
-      "name": "Messages",
-      "short_name": "Messages",
-      "description": "Check your messages",
-      "url": "/?tab=messages",
+      "name": "Students",
+      "short_name": "Students",
+      "description": "View student information and grades",
+      "url": "/?page=students",
       "icons": [
         {
-          "src": "/icon-192.png",
-          "sizes": "192x192"
+          "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+          "sizes": "96x96"
         }
       ]
     },
     {
       "name": "Calendar",
       "short_name": "Calendar",
-      "description": "View school calendar",
-      "url": "/?tab=calendar",
+      "description": "View school events and schedule",
+      "url": "/?page=calendar",
       "icons": [
         {
-          "src": "/icon-192.png",
-          "sizes": "192x192"
+          "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+          "sizes": "96x96"
         }
       ]
     }
