@@ -1,8 +1,8 @@
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'default_service';
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'default_template';
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'default_key';
+const SERVICE_ID = 'service_yvl11d5';
+const TEMPLATE_ID = 'template_zlp263e';
+const PUBLIC_KEY = 'Un7snKzeE4AGeorc-';
 
 export const sendOTPEmail = async (email: string, otp: string, role: string): Promise<void> => {
   try {
