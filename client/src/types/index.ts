@@ -95,7 +95,7 @@ export interface AuthContextType {
   login: (email: string, role: UserRole) => Promise<void>;
   verifyOTP: (otp: string) => Promise<void>;
   logout: () => Promise<void>;
-  sendOTP: (email: string, role: UserRole) => Promise<void>;
+  sendOTP: (email: string, role: UserRole, additionalData?: Partial<User>) => Promise<void>;
 }
 
 export interface DashboardStats {

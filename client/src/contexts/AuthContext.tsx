@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const sendOTP = async (email: string, role: UserRole): Promise<void> => {
+  const sendOTP = async (email: string, role: UserRole, additionalData?: Partial<User>): Promise<void> => {
     try {
       const otp = generateOTP();
       
@@ -59,10 +59,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, // Temporary ID
         email,
         role,
-        firstName: '',
-        lastName: '',
-        schoolId: 'default_school', // In production, this should be selected
+        firstName: additionalData?.firstName || '',
+        lastName: additionalData?.lastName || '',
+        schoolId: additionalData?.schoolId || 'default_school',
         isActive: true,
+        ...additionalData
       };
 
       // Store OTP temporarily
