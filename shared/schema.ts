@@ -10,6 +10,21 @@ export const users = pgTable("users", {
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   schoolId: text("school_id").notNull(),
+  // Admin-specific fields
+  schoolName: text("school_name"), // For admin registration only
+  schoolAddress: text("school_address"), // For admin registration only
+  schoolPhone: text("school_phone"), // For admin registration only
+  adminTitle: text("admin_title"), // For admin: Principal, Vice Principal, etc.
+  // Parent-specific fields
+  parentPhone: text("parent_phone"), // For parent registration only
+  parentOccupation: text("parent_occupation"), // For parent registration only
+  emergencyContact: text("emergency_contact"), // For parent registration only
+  emergencyContactPhone: text("emergency_contact_phone"), // For parent registration only
+  relationshipToStudent: text("relationship_to_student"), // For parent: Father, Mother, Guardian
+  // Teacher fields (only created by admin)
+  teacherSubjects: text("teacher_subjects").array(), // Subjects the teacher can teach
+  teacherQualifications: text("teacher_qualifications"), // Teacher's qualifications
+  employeeId: text("employee_id"), // For teachers created by admin
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
@@ -76,6 +91,50 @@ export const events = pgTable("events", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Base user schema for common fields
+export const baseUserSchema = createInsertSchema(users).pick({
+  email: true,
+  firstName: true,
+  lastName: true,
+});
+
+// Admin registration schema with admin-specific fields
+export const adminRegistrationSchema = baseUserSchema.extend({
+  role: z.literal("admin"),
+  schoolName: z.string().min(1, "School name is required"),
+  schoolAddress: z.string().min(1, "School address is required"),
+  schoolPhone: z.string().min(1, "School phone is required"),
+  adminTitle: z.string().min(1, "Admin title is required"),
+  schoolId: z.string().optional(), // Will be generated for admin
+});
+
+// Parent registration schema with parent-specific fields
+export const parentRegistrationSchema = baseUserSchema.extend({
+  role: z.literal("parent"),
+  schoolId: z.string().min(1, "School ID is required"),
+  parentPhone: z.string().min(1, "Phone number is required"),
+  parentOccupation: z.string().min(1, "Occupation is required"),
+  emergencyContact: z.string().min(1, "Emergency contact is required"),
+  emergencyContactPhone: z.string().min(1, "Emergency contact phone is required"),
+  relationshipToStudent: z.enum(["father", "mother", "guardian"], {
+    required_error: "Please select your relationship to the student",
+  }),
+});
+
+// Teacher creation schema (only for admin use)
+export const teacherCreationSchema = createInsertSchema(users).pick({
+  email: true,
+  firstName: true,
+  lastName: true,
+  schoolId: true,
+}).extend({
+  role: z.literal("teacher"),
+  teacherSubjects: z.array(z.string()).min(1, "At least one subject is required"),
+  teacherQualifications: z.string().min(1, "Qualifications are required"),
+  employeeId: z.string().min(1, "Employee ID is required"),
+});
+
+// General insert schema (backwards compatibility)
 export const insertUserSchema = createInsertSchema(users).pick({
   email: true,
   role: true,
@@ -126,6 +185,9 @@ export const insertEventSchema = createInsertSchema(events).pick({
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
+export type AdminRegistration = z.infer<typeof adminRegistrationSchema>;
+export type ParentRegistration = z.infer<typeof parentRegistrationSchema>;
+export type TeacherCreation = z.infer<typeof teacherCreationSchema>;
 export type Student = typeof students.$inferSelect;
 export type InsertStudent = z.infer<typeof insertStudentSchema>;
 export type Subject = typeof subjects.$inferSelect;

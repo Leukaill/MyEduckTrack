@@ -10,7 +10,7 @@ import { UserRole } from '@/types';
 import { useToast } from '@/hooks/use-toast';
 
 interface LoginFormProps {
-  onOTPSent: () => void;
+  onOTPSent: (data?: any) => void;
   onGoToRegister: () => void;
 }
 

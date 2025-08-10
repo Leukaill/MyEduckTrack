@@ -6,11 +6,14 @@ import { LoadingSpinner } from '@/components/Common/LoadingSpinner';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
+import { AdminRegistration, ParentRegistration } from '@shared/schema';
+
 interface OTPVerificationProps {
   onBack: () => void;
+  registrationData?: AdminRegistration | ParentRegistration | null;
 }
 
-export const OTPVerification: React.FC<OTPVerificationProps> = ({ onBack }) => {
+export const OTPVerification: React.FC<OTPVerificationProps> = ({ onBack, registrationData }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
   const { verifyOTP, sendOTP } = useAuth();

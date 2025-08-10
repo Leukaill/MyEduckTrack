@@ -25,14 +25,22 @@ Preferred communication style: Simple, everyday language.
 ## Authentication & Authorization
 - **Method**: OTP (One-Time Password) based authentication via email
 - **User Management**: Firebase Authentication for user sessions
-- **Role-Based Access**: Three distinct user roles (admin, teacher, parent) with corresponding permissions
+- **Role-Based Access**: Three distinct user roles with customized registration:
+  - **Admin**: Can register with school setup information, creates teacher accounts
+  - **Parent**: Self-registration with parent-specific information and school ID
+  - **Teacher**: Cannot self-register; accounts created only by school administrators
 - **Session Management**: Firebase session handling with automatic token refresh
+- **Registration System**: Java-friendly architecture with role-specific schemas and validation
 
 ## Data Architecture
 - **Database**: PostgreSQL with Drizzle ORM for type-safe database operations
-- **Schema**: Comprehensive relational design covering users, students, subjects, grades, messages, and events
+- **Schema**: Enhanced user table with role-specific fields:
+  - Admin fields: school information, admin title
+  - Parent fields: contact info, emergency contacts, relationship to student
+  - Teacher fields: subjects, qualifications, employee ID (admin-created only)
 - **Real-time Updates**: Firestore for real-time messaging and notifications
 - **File Storage**: Local storage abstraction for file uploads and attachments
+- **Java Compatibility**: Structured for easy conversion to Java with clear separation of concerns
 
 ## Mobile-First Design
 - **Progressive Web App**: Full PWA support with service worker, manifest, and offline capabilities
