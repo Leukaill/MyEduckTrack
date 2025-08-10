@@ -52,25 +52,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const sendOTP = async (email: string, role: UserRole, additionalData?: Partial<User>): Promise<void> => {
     try {
-      const otp = generateOTP();
+      // Call backend to send OTP
+      const response = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, role }),
+      });
+
+      const result = await response.json();
       
-      // Create user data
-      const userData: Partial<User> = {
-        id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, // Temporary ID
-        email,
-        role,
-        firstName: additionalData?.firstName || '',
-        lastName: additionalData?.lastName || '',
-        schoolId: additionalData?.schoolId || 'default_school',
-        isActive: true,
-        ...additionalData
-      };
-
-      // Store OTP temporarily
-      storeOTP(email, otp, userData);
-
-      // Send OTP via email
-      await sendOTPEmail(email, otp, role);
+      if (!result.success) {
+        throw new Error(result.message);
+      }
     } catch (error) {
       console.error('Error sending OTP:', error);
       throw new Error('Failed to send OTP. Please try again.');
@@ -81,31 +76,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await sendOTP(email, role);
   };
 
-  const verifyOTP = async (otp: string): Promise<void> => {
+  const verifyOTP = async (email: string, otp: string): Promise<void> => {
     try {
-      // Get stored data (in a real app, you'd pass the email as well)
-      const storedEntries = Array.from((window as any).otpStorage?.entries() || []);
-      if (storedEntries.length === 0) {
-        throw new Error('No OTP found. Please request a new one.');
+      // Call backend to verify OTP
+      const response = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, otp }),
+      });
+
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.message);
       }
 
-      const [email] = storedEntries[0] as [string, any];
-      const { isValid, userData } = verifyOTPUtil(email, otp);
-
-      if (!isValid) {
-        throw new Error('Invalid OTP. Please try again.');
+      // If user exists, set them as logged in
+      if (result.user) {
+        setUser(result.user);
       }
-
-      if (!userData) {
-        throw new Error('User data not found.');
-      }
-
-      // Create or update user in Firestore
-      const createdUser = await createOrUpdateUser(userData);
-
-      // Sign in to Firebase (in production, you'd use a custom token from your backend)
-      // For demo purposes, we'll set the user directly
-      setUser(createdUser);
     } catch (error) {
       console.error('Error verifying OTP:', error);
       throw error;

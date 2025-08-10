@@ -16,6 +16,7 @@ interface OTPVerificationProps {
 export const OTPVerification: React.FC<OTPVerificationProps> = ({ onBack, registrationData }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [loading, setLoading] = useState(false);
+  const [email] = useState(registrationData?.email || localStorage.getItem('otpEmail') || '');
   const { verifyOTP, sendOTP } = useAuth();
   const { toast } = useToast();
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -59,7 +60,7 @@ export const OTPVerification: React.FC<OTPVerificationProps> = ({ onBack, regist
 
     try {
       setLoading(true);
-      await verifyOTP(otpString);
+      await verifyOTP(email, otpString);
       toast({
         title: "Success",
         description: "Welcome to EducTrack!",

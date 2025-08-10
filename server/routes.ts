@@ -2,8 +2,115 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { adminRegistrationSchema, parentRegistrationSchema, teacherCreationSchema } from "@shared/schema";
+import { emailService } from "./email";
+import { randomInt } from "crypto";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // OTP storage (in production, use Redis or database)
+  const otpStore = new Map<string, { otp: string; timestamp: number; userData?: any }>();
+
+  // Send OTP endpoint
+  app.post("/api/auth/send-otp", async (req, res) => {
+    try {
+      const { email, role } = req.body;
+      
+      if (!email || !role) {
+        return res.status(400).json({
+          success: false,
+          message: "Email and role are required"
+        });
+      }
+
+      // Generate 6-digit OTP
+      const otp = randomInt(100000, 999999).toString();
+      
+      // Store OTP with timestamp (expires in 10 minutes)
+      otpStore.set(email, {
+        otp,
+        timestamp: Date.now(),
+        userData: { email, role }
+      });
+
+      // Send OTP via email
+      await emailService.sendOTP(email, otp, role);
+
+      res.json({
+        success: true,
+        message: "OTP sent successfully"
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error instanceof Error ? error.message : "Failed to send OTP"
+      });
+    }
+  });
+
+  // Verify OTP endpoint
+  app.post("/api/auth/verify-otp", async (req, res) => {
+    try {
+      const { email, otp } = req.body;
+      
+      if (!email || !otp) {
+        return res.status(400).json({
+          success: false,
+          message: "Email and OTP are required"
+        });
+      }
+
+      const storedData = otpStore.get(email);
+      
+      if (!storedData) {
+        return res.status(400).json({
+          success: false,
+          message: "OTP not found or expired"
+        });
+      }
+
+      // Check if OTP is expired (10 minutes)
+      const isExpired = Date.now() - storedData.timestamp > 10 * 60 * 1000;
+      
+      if (isExpired) {
+        otpStore.delete(email);
+        return res.status(400).json({
+          success: false,
+          message: "OTP has expired"
+        });
+      }
+
+      if (storedData.otp !== otp) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid OTP"
+        });
+      }
+
+      // OTP verified successfully
+      otpStore.delete(email);
+      
+      // Check if user exists
+      const existingUser = await storage.getUserByEmail(email);
+      
+      res.json({
+        success: true,
+        message: "OTP verified successfully",
+        user: existingUser ? {
+          id: existingUser.id,
+          email: existingUser.email,
+          role: existingUser.role,
+          firstName: existingUser.firstName,
+          lastName: existingUser.lastName,
+          schoolId: existingUser.schoolId
+        } : null
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error instanceof Error ? error.message : "OTP verification failed"
+      });
+    }
+  });
+
   // Authentication endpoints
   app.post("/api/auth/register-admin", async (req, res) => {
     try {

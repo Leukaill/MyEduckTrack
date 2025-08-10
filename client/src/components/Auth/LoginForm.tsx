@@ -36,6 +36,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onOTPSent, onGoToRegister 
     try {
       setLoading(true);
       await sendOTP(email, role as UserRole);
+      // Store email for OTP verification
+      localStorage.setItem('otpEmail', email);
       toast({
         title: "OTP Sent",
         description: "Please check your email for the verification code",
