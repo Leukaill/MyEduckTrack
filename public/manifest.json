@@ -12,13 +12,13 @@
   "categories": ["education", "productivity"],
   "icons": [
     {
-      "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+      "src": "/logo.jpeg",
       "sizes": "192x192",
       "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+      "src": "/logo.jpeg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any maskable"
@@ -46,7 +46,7 @@
       "url": "/?page=messages",
       "icons": [
         {
-          "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+          "src": "/logo.jpeg",
           "sizes": "96x96"
         }
       ]
@@ -58,7 +58,7 @@
       "url": "/?page=students",
       "icons": [
         {
-          "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+          "src": "/logo.jpeg",
           "sizes": "96x96"
         }
       ]
@@ -70,7 +70,7 @@
       "url": "/?page=calendar",
       "icons": [
         {
-          "src": "/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg",
+          "src": "/logo.jpeg",
           "sizes": "96x96"
         }
       ]

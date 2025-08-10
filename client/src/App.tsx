@@ -55,7 +55,7 @@ const AppContent: React.FC = () => {
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden border border-gray-200">
                 <img 
-                  src="/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg" 
+                  src="/logo.jpeg" 
                   alt="School Logo" 
                   className="w-8 h-8 object-contain"
                   data-testid="img-nav-logo"

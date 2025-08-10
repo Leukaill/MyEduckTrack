@@ -57,7 +57,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onOTPSent }) => {
       <div className="text-center mb-8">
         <div className="w-20 h-20 bg-white rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-md overflow-hidden">
           <img 
-            src="/attached_assets/WhatsApp Image 2025-08-10 at 5.46.34 PM_1754841275992.jpeg" 
+            src="/logo.jpeg" 
             alt="EducTrack Logo" 
             className="w-16 h-16 object-contain"
             data-testid="img-logo"
