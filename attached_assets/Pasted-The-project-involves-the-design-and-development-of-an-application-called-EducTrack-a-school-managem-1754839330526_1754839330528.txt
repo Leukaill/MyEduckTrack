@@ -1,0 +1,32 @@
+The project involves the design and development of an application called EducTrack, a school management system intended to enhance communication and collaboration among school administrators, teachers, and parents. Users can create accounts based on their roles: administrator, teacher, or parent.
+Many schools currently struggle with managing information such as student attendance, academic performance, teacher tasks, and parent-teacher communication. This project aims to provide a solution by developing a digital platform that is simple, efficient, and easy to use.
+EducTrack will offer several key features to support day-to-day school operations:
+•	A personalized dashboard for each user type (admin, teacher, parent);
+•	A module for tracking student results by subject, accessible to teachers and parents;
+•	A communication space (chat) for direct dialogue between teachers and parents;
+•	Access for teachers to upload and manage marks, corrected exercises, and exams, which parents can view;
+•	A calendar of school and extracurricular events, including activities like school trips, competitions, workshops, and cultural events.
+The goal is to build a secure and user-friendly application that addresses the real needs of schools. While the students themselves will not directly use the app, EducTrack aims to improve how schools manage and share information among key stakeholders
+General Objective
+To design and develop a school management system (EducTrack) that facilitates communication and information sharing between school administrators, teachers, and parents.
+Specific Objectives
+•	To provide a role-based user interface for different types of users;
+•	To allow teachers to upload and manage students’ results and corrected exercises;
+•	To enable parents to access their children’s academic progress in real-time;
+•	To implement a messaging feature for parents and teachers to communicate;
+•	To offer a school calendar displaying academic and extracurricular events.
+1.3 Scope of the Project
+This project is limited to the development of a mobile application that targets three user types: administrators, teachers, and parents. It will not include direct student access. The system will focus on:
+•	Academic information management (grades, feedback, exercises);
+•	Communication between teachers and parents;
+•	Event management and calendar access;
+•	Secure login and role-based access;
+•	Data storage in the cloud (Firebase) for accessibility and real-time updates.
+The platform is initially designed for small to medium-sized schools but can be scaled for larger institutions
+
+•	The application does not include student logins or access;
+•	Testing is limited to a controlled group and may not represent all school contexts;
+•	Some features may depend on internet connectivity;
+•	Language and accessibility customization may be limited in the first version;
+•	The scope is limited to core features; additional functions (e.g., fee tracking) may be added later.
+CHAPTER 
