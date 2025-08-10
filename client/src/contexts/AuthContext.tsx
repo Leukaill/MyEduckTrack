@@ -66,6 +66,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (!result.success) {
         throw new Error(result.message);
       }
+
+      // In development, log the OTP to console for testing
+      if (result.otp) {
+        console.log(`🔐 Development OTP: ${result.otp}`);
+      }
     } catch (error) {
       console.error('Error sending OTP:', error);
       throw new Error('Failed to send OTP. Please try again.');

@@ -36,7 +36,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json({
         success: true,
-        message: "OTP sent successfully"
+        message: "OTP sent successfully",
+        // In development, include OTP in response for testing
+        ...(process.env.NODE_ENV === 'development' && { otp })
       });
     } catch (error) {
       res.status(500).json({
